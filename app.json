@@ -1,30 +1,22 @@
+
+
 {
   "expo": {
-    "name": "Hello, World!",
-    "slug": "fitness-app",
-    "privacy": "public",
     "sdkVersion": "34.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "name": "Fitness",
+    "description": "The best triathlon tracker ever",
+    "slug": "udacfitness",
+    "version": "1.0",
+    "icon": "https://tylermcginnis.com/udacifitness-512.png",
+    "notification": {
+      "icon": "https://tylermcginnis.com/udacifitness-45.png"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "org.fitness.exp"
+    },
+    "android": {
+      "package": "org.fitness.exp"
     }
   }
 }
