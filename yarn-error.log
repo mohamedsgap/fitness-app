@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-navigation-tabs
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-reanimated react-native-gesture-handler react-native-screens@^1.0.0-alpha.23
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\matrtech\bin;C:\ProgramData\Oracle\Java\javapath;C:\MinGW\bin;C:\MinGW\libexec\gcc\x86_64-pc-mingw32\6.3.0;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn;C:\Program Files\Microsoft SQL Server\100\Tools\Binn;C:\Program Files\Microsoft SQL Server\100\DTS\Binn;C:\Program Files\Common Files\Autodesk Shared;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files (x86)\Skype\Phone;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\Yarn\bin;C:\Program Files\nodejs;C:\Users\matrtech\AppData\Local\Programs\Python\Python37\Scripts;C:\Users\matrtech\AppData\Local\Programs\Python\Python37;C:\Users\matrtech\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\matrtech\AppData\Local\atom\bin;C:\Users\matrtech\AppData\Local\Microsoft\WindowsApps;C:\Users\matrtech\AppData\Local\Yarn\bin;C:\Users\matrtech\AppData\Roaming\npm;[YOUR_PATH];[YOUR_PATH]\Scripts;[YOUR_PATH];[YOUR_PATH]\Scripts;[YOUR_PATH];[YOUR_PATH]\Scripts;C:\Users\matrtech\Anaconda3;C:\Users\matrtech\Scripts
@@ -47,6 +47,7 @@ npm manifest:
       "react-native-gesture-handler": "~1.3.0",
       "react-native-web": "^0.11.4",
       "react-navigation": "^4.0.10",
+      "react-navigation-tabs": "^2.5.5",
       "react-redux": "^7.1.1",
       "redux": "^4.0.4",
       "udacifitness-calendar": "^11.0.0"
@@ -7161,7 +7162,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
     integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
   
-  react-lifecycles-compat@^3.0.0:
+  react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
     integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
@@ -7185,7 +7186,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
     integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
   
-  react-native-safe-area-view@^0.14.1:
+  react-native-safe-area-view@^0.14.1, react-native-safe-area-view@^0.14.6:
     version "0.14.8"
     resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.8.tgz#ef33c46ff8164ae77acad48c3039ec9c34873e5b"
     integrity sha512-MtRSIcZNstxv87Jet+UsPhEd1tpGe8cVskDXlP657x6rHpSrbrc+y13ZNXrwAgGNNhqQNX7UJT68ZIq//ZRmvw==
@@ -7198,6 +7199,11 @@ Lockfile:
     integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
     dependencies:
       debounce "^1.2.0"
+  
+  react-native-tab-view@^2.9.0:
+    version "2.10.0"
+    resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.10.0.tgz#5e249e5650502010013449ffd4e5edc18a95364b"
+    integrity sha512-qgexVz5eO4yaFjdkmn/sURXgVvaBo6pZD/q1eoca96SbPVbaH3WzVhF3bRUfeTHwZkXwznFTpS3JURqIFU8vQA==
   
   react-native-view-shot@2.6.0:
     version "2.6.0"
@@ -7274,6 +7280,16 @@ Lockfile:
       ws "^1.1.5"
       xmldoc "^0.4.0"
       yargs "^9.0.0"
+  
+  react-navigation-tabs@^2.5.5:
+    version "2.5.5"
+    resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-2.5.5.tgz#f651355b140b35ef5753aac434da5e1943abdd26"
+    integrity sha512-oIL5V4agCxcqbWNZzF1h/cm1bxKXNUeGrWaRQEEnuN3TXTEj1SVRz33CnKYg30pVvgF5L2p28sOk15Z4Ao01NQ==
+    dependencies:
+      hoist-non-react-statics "^3.3.0"
+      react-lifecycles-compat "^3.0.4"
+      react-native-safe-area-view "^0.14.6"
+      react-native-tab-view "^2.9.0"
   
   react-navigation@^4.0.10:
     version "4.0.10"
