@@ -1,4 +1,64 @@
 import React from 'react'
+import { View, Platform, StatusBar } from 'react-native'
+import AddEntry from './components/AddEntry'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import History from './components/History'
+import { createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
+import { white, purple } from './utils/colors'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { Constants } from 'expo'
+import EntryDetail from './components/EntryDetail'
+import Tabs from './components/Tabs'
+import { setLocalNotification } from './utils/helpers'
+
+function UdaciStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
+
+const MainNavigator = createAppContainer(createStackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  EntryDetail: {
+    screen: EntryDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  }
+}))
+
+
+export default class App extends React.Component {
+	componentDidMount() {
+    setLocalNotification()
+  }
+
+  render() {
+    return (
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+        	<UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
+
+        	<MainNavigator />
+          {/* <TabNav /> */}
+        </View>
+      </Provider>
+    )
+  }
+}
+
+
+/*
+import React from 'react'
 import { View, Platform } from 'react-native'
 import AddEntry from './components/AddEntry'
 import { createStore } from 'redux'
@@ -83,6 +143,7 @@ const MainNavigator = StackNavigator({
 })
 
 
+
 export default class App extends React.Component {
   componentDidMount() {
     setLocalNotification()
@@ -99,3 +160,4 @@ export default class App extends React.Component {
   }
 }
 
+*/
