@@ -3,9 +3,9 @@ import { Platform } from 'react-native';
 import { Icon } from 'expo';
 import {
   createBottomTabNavigator,
-  createMaterialTopTabNavigator,
-  createStackNavigator
-} from 'react-navigation';
+  createMaterialTopTabNavigator
+} from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
 import History from '../components/History';
 import AddEntry from '../components/AddEntry';
 import EntryDetail from '../components/EntryDetail';
