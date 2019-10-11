@@ -1,11 +1,21 @@
-import React from 'react'
-import { Text } from 'react-native'
-import { purple } from '../utils/colors'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, StyleSheet } from 'react-native';
+import purple from '../utils/colors';
 
-export default function DateHeader ({ date }) {
-  return (
-    <Text style={{color: purple, fontSize: 25}}>
-      {date}
-    </Text>
-  )
-}
+const DateHeader = ({ date }) => {
+  return <Text style={styles.dateText}>{date}</Text>;
+};
+
+DateHeader.propTypes = {
+  date: PropTypes.string.isRequired
+};
+
+const styles = StyleSheet.create({
+  dateText: {
+    fontSize: 25,
+    color: purple
+  }
+});
+
+export default DateHeader;

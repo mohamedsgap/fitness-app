@@ -1,15 +1,58 @@
-import React from 'react'
-import { View, StyleSheet, AsyncStorage } from 'react-native'
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { red, orange, blue, lightPurp, pink, white } from './colors'
-import { Notifications, Permissions } from 'expo'
+import React from 'react';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
+import {
+  FontAwesome,
+  MaterialIcons,
+  MaterialCommunityIcons
+} from '@expo/vector-icons';
+import { white, red, orange, blue, lightPurp, pink } from './colors';
+import { Notifications, Permissions } from 'expo';
 
-const NOTIFICATION_KEY = 'UdaciFitness:notifications'
+const NOTIFICATION_KEY = 'UdaciFitness:notifications';
+const CHANNEL_ID = 'udaci1';
 
-export function getDailyReminderValue () {
-  return {
-    today: "👋 Don't forget to log your data today!"
+export function isBetween(num, x, y) {
+  if (num >= x && num <= y) {
+    return true;
   }
+
+  return false;
+}
+
+export function calculateDirection(heading) {
+  let direction = '';
+
+  if (isBetween(heading, 0, 22.5)) {
+    direction = 'North';
+  } else if (isBetween(heading, 22.5, 67.5)) {
+    direction = 'North East';
+  } else if (isBetween(heading, 67.5, 112.5)) {
+    direction = 'East';
+  } else if (isBetween(heading, 112.5, 157.5)) {
+    direction = 'South East';
+  } else if (isBetween(heading, 157.5, 202.5)) {
+    direction = 'South';
+  } else if (isBetween(heading, 202.5, 247.5)) {
+    direction = 'South West';
+  } else if (isBetween(heading, 247.5, 292.5)) {
+    direction = 'West';
+  } else if (isBetween(heading, 292.5, 337.5)) {
+    direction = 'North West';
+  } else if (isBetween(heading, 337.5, 360)) {
+    direction = 'North';
+  } else {
+    direction = 'Calculating';
+  }
+
+  return direction;
+}
+
+export function timeToString(time = Date.now()) {
+  const date = new Date(time);
+  const todayUTC = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+  return todayUTC.toISOString().split('T')[0];
 }
 
 const styles = StyleSheet.create({
@@ -21,10 +64,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 20
-  },
-})
+  }
+});
 
-export function getMetricMetaInfo (metric) {
+export const getMetricMetaInfo = metric => {
   const info = {
     run: {
       displayName: 'Run',
@@ -34,14 +77,10 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: red}]}>
-            <MaterialIcons
-              name='directions-run'
-              color={white}
-              size={35}
-            />
+          <View style={[styles.iconContainer, { backgroundColor: red }]}>
+            <MaterialIcons name="directions-run" color={white} size={35} />
           </View>
-        )
+        );
       }
     },
     bike: {
@@ -52,14 +91,10 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: orange}]}>
-            <MaterialCommunityIcons
-              name='bike'
-              color={white}
-              size={32}
-            />
+          <View style={[styles.iconContainer, { backgroundColor: orange }]}>
+            <MaterialCommunityIcons name="bike" color={white} size={35} />
           </View>
-        )
+        );
       }
     },
     swim: {
@@ -70,14 +105,10 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: blue}]}>
-            <MaterialCommunityIcons
-              name='swim'
-              color={white}
-              size={35}
-            />
+          <View style={[styles.iconContainer, { backgroundColor: blue }]}>
+            <MaterialCommunityIcons name="swim" color={white} size={35} />
           </View>
-        )
+        );
       }
     },
     sleep: {
@@ -88,14 +119,10 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: lightPurp}]}>
-            <FontAwesome
-              name='bed'
-              color={white}
-              size={30}
-            />
+          <View style={[styles.iconContainer, { backgroundColor: lightPurp }]}>
+            <FontAwesome name="bed" color={white} size={35} />
           </View>
-        )
+        );
       }
     },
     eat: {
@@ -106,113 +133,88 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: pink}]}>
-            <MaterialCommunityIcons
-              name='food'
-              color={white}
-              size={35}
-            />
+          <View style={[styles.iconContainer, { backgroundColor: pink }]}>
+            <MaterialCommunityIcons name="food" color={white} size={35} />
           </View>
-        )
+        );
       }
-    },
-  }
+    }
+  };
 
-  return typeof metric === 'undefined'
-    ? info
-    : info[metric]
+  return typeof metric === 'undefined' ? info : info[metric];
+};
+
+export function getDailyReminderValue() {
+  return {
+    today: "👋 Don't forget to log your data today!"
+  };
 }
 
-
-export function isBetween (num, x, y) {
-  if (num >= x && num <= y) {
-    return true
-  }
-
-  return false
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+    Notifications.cancelAllScheduledNotificationsAsync
+  );
 }
 
-export function calculateDirection (heading) {
-  let direction = ''
-
-  if (isBetween(heading, 0, 22.5)) {
-    direction = 'North'
-  } else if (isBetween(heading, 22.5, 67.5)) {
-    direction = 'North East'
-  } else if (isBetween(heading, 67.5, 112.5)) {
-    direction = 'East'
-  } else if (isBetween(heading, 112.5, 157.5)) {
-    direction = 'South East'
-  } else if (isBetween(heading, 157.5, 202.5)) {
-    direction = 'South'
-  } else if (isBetween(heading, 202.5, 247.5)) {
-    direction = 'South West'
-  } else if (isBetween(heading, 247.5, 292.5)) {
-    direction = 'West'
-  } else if (isBetween(heading, 292.5, 337.5)) {
-    direction = 'North West'
-  } else if (isBetween(heading, 337.5, 360)) {
-    direction = 'North'
-  } else {
-    direction = 'Calculating'
-  }
-
-  return direction
-}
-
-export function timeToString (time = Date.now()) {
-  const date = new Date(time)
-  const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
-  return todayUTC.toISOString().split('T')[0]
-}
-
-export function clearLocalNotification () {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
-}
-
-function createNotification () {
+function createNotification() {
   return {
     title: 'Log your stats!',
-    body: "👋 don't forget to log your stats for today!",
+    body: "👋 Don't forget to log your stats for today!",
     ios: {
-      sound: true,
+      sound: true
     },
     android: {
-      sound: true,
-      priority: 'high',
+      channelId: CHANNEL_ID,
       sticky: false,
-      vibrate: true,
+      color: 'red'
     }
-  }
+  };
 }
 
-export function setLocalNotification () {
+function createChannel() {
+  return {
+    name: 'Daily Reminder',
+    description: 'Description of what this notification channel is...',
+    sound: true,
+    priority: 'high'
+  };
+}
+
+export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
-    .then((data) => {
+    .then(data => {
+      // if (true) {
       if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then(({ status }) => {
-            if (status === 'granted') {
-              Notifications.cancelAllScheduledNotificationsAsync()
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          // console.log('got in');
+          if (status === 'granted') {
+            // Notifications.presentLocalNotificationAsync(createNotification());
+            Notifications.createChannelAndroidAsync(CHANNEL_ID, createChannel())
+              // .then(val => console.log('channel return:', val))
+              .then(() => {
+                Notifications.cancelAllScheduledNotificationsAsync();
 
-              let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(20)
-              tomorrow.setMinutes(0)
+                const tomorrow = new Date();
+                // 2 minute from now
+                tomorrow.setTime(tomorrow.getTime() + 2 * 60000);
 
-              Notifications.scheduleLocalNotificationAsync(
-                createNotification(),
-                {
-                  time: tomorrow,
-                  repeat: 'day',
-                }
-              )
+                // tomorrow.setDate(tomorrow.getDate() + 1);
+                // tomorrow.setHours(20);
+                // tomorrow.setMinutes(0);
 
-              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
-            }
-          })
+                Notifications.scheduleLocalNotificationAsync(
+                  createNotification(),
+                  {
+                    time: tomorrow,
+                    repeat: 'day'
+                  }
+                );
+
+                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+              });
+          }
+        });
       }
-    })
+    });
 }
