@@ -11,6 +11,9 @@ It uses Geolocation and allows users to track activity in following categories:
 - Sleep
 - Eat
 
+## Live screenshots from the app.
+<img src="assets/Screenshot2.jpg" width="250"> <img src="assets/Screenshot1.jpg" width="250"> <img src="assets/Screenshot3.jpg" width="250">
+
 ## Installation
 
 Clone the repository, change directories, and use npm or yarn to install the dependencies.
